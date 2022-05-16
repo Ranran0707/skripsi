@@ -92,7 +92,7 @@
                         <li><a class="page-number-item" href="#">2</a></li>
                         <li><a class="page-number-item" href="#">3</a></li>
                         <li><a class="page-number-item next-link" href="#">Next</a></li>
-                    </ul>
+                    </ul><script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.min.js" integrity="sha512-1mDhG//LAjM3pLXCJyaA+4c+h5qmMoTc7IuJyuNNPaakrWT9rVTxICK4tIizf7YwJsXgDC2JP74PGCc7qxLAHw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                     <p class="result-count">Showing 1-8 of 12 result</p> --}}
                 </div>
             </div>
@@ -141,7 +141,7 @@
                     </div>
                 </div><!-- brand widget-->
 
-                <div class="widget mercado-widget filter-widget price-filter">
+                {{-- <div class="widget mercado-widget filter-widget price-filter">
                     <h2 class="widget-title">Price</h2>
                     <div class="widget-content">
                         <div id="slider-range"></div>
@@ -151,7 +151,8 @@
                             <button class="filter-submit">Filter</button>
                         </p>
                     </div>
-                </div><!-- Price-->
+                </div> --}}
+                <!-- Price-->
 
                 <div class="widget mercado-widget filter-widget">
                     <h2 class="widget-title">Color</h2>
