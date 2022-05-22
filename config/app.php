@@ -164,6 +164,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+        Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -232,6 +233,7 @@ return [
         'Validator' => Illuminate\Support\Facedes\Validator::class,
         'View' => Illuminate\Support\Facedes\View::class,
         'Cart' => Gloudemans\Shoppingcart\Facedes\Cart::class,
+        'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
 
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
