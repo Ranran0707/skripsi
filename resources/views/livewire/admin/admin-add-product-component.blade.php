@@ -133,6 +133,20 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-md-4 control-label">Product Gallery</label>
+                                <div class="col-md-4">
+                                    <input type="file" class="input-file" wire:model="images" multiple>
+                                    @if ($images)
+                                        @foreach ($images as $image)
+                                            <img src="{{ $image->temporaryUrl() }}" width="120" alt="">
+                                        @endforeach
+                                    @endif
+                                    @error('images')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-md-4 control-label">Category</label>
                                 <div class="col-md-4">
                                     <select name="" id="" class="form-control" wire:model="category_id">
@@ -147,7 +161,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-4 control-label">Submit</label>
+                                <label class="col-md-4 control-label"></label>
                                 <div class="col-md-4">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>

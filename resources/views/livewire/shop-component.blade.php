@@ -5,7 +5,7 @@
         <div class="wrap-breadcrumb">
             <ul>
                 <li class="item-link"><a href="#" class="link">home</a></li>
-                <li class="item-link"><span>Digital & Electronics</span></li>
+                <li class="item-link"><span>Shop</span></li>
             </ul>
         </div>
         <div class="row">
@@ -20,7 +20,7 @@
 
                 <div class="wrap-shop-control">
 
-                    <h1 class="shop-title">Digital & Electronics</h1>
+                    <h1 class="shop-title">Products</h1>
 
                     <div class="wrap-right">
 
@@ -153,7 +153,7 @@
                     </div>
                 </div><!-- Categories widget-->
 
-                <div class="widget mercado-widget filter-widget brand-widget">
+                {{-- <div class="widget mercado-widget filter-widget brand-widget">
                     <h2 class="widget-title">Brand</h2>
                     <div class="widget-content">
                         <ul class="list-style vertical-list list-limited" data-show="6">
@@ -179,7 +179,7 @@
                                         aria-hidden="true"></i></a></li>
                         </ul>
                     </div>
-                </div><!-- brand widget-->
+                </div><!-- brand widget--> --}}
 
                 {{-- <div class="widget mercado-widget filter-widget price-filter">
                     <h2 class="widget-title">Price</h2>
@@ -194,7 +194,7 @@
                 </div> --}}
                 <!-- Price-->
 
-                <div class="widget mercado-widget filter-widget">
+                {{-- <div class="widget mercado-widget filter-widget">
                     <h2 class="widget-title">Color</h2>
                     <div class="widget-content">
                         <ul class="list-style vertical-list has-count-index">
@@ -212,7 +212,7 @@
                             </li>
                         </ul>
                     </div>
-                </div><!-- Color -->
+                </div><!-- Color --> --}}
 
                 <div class="widget mercado-widget filter-widget">
                     <h2 class="widget-title">Size</h2>
@@ -240,7 +240,7 @@
                                     <div class="thumbnnail">
                                         <a href="detail.html"
                                             title="Radiant-360 R6 Wireless Omnidirectional Speaker [White]">
-                                            <figure><img src="{{ asset('assets/images/products/digital_01.jpg') }}"
+                                            <figure><img src="{{ asset('assets/images/products/digital_1.jpg') }}"
                                                     alt=""></figure>
                                         </a>
                                     </div>
