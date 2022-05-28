@@ -23,14 +23,27 @@
             <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 main-content-area">
                 <div class="wrap-product-detail">
                     <div class="detail-media">
-                        <div class="product-gallery">
+
+                        <div class="product-gallery" wire:ignore>
                             <ul class="slides">
                                 <li data-thumb="{{ asset('assets/images/products') }}/{{ $product->image }}">
                                     <img src=" {{ asset('assets/images/products') }}/{{ $product->image }}"
                                         alt="{{ $product->name }}" />
                                 </li>
+                                @php
+                                    $images = explode(',', $product->images);
+                                @endphp
+                                @foreach ($images as $image)
+                                    @if ($image)
+                                        <li data-thumb="{{ asset('assets/images/products') }}/{{ $image }}">
+                                            <img src=" {{ asset('assets/images/products') }}/{{ $image }}"
+                                                alt="{{ $product->name }}" />
+                                        </li>
+                                    @endif
+                                @endforeach
                             </ul>
                         </div>
+
                     </div>
                     <div class="detail-info">
                         <div class="product-rating">
@@ -65,8 +78,8 @@
                             {!! $product->short_description !!}
                         </div>
                         <div class="wrap-social">
-                            <a class="link-socail" href="#"><img src="{{ asset('assets/images/social-list.png') }}"
-                                    alt=""></a>
+                            <a class="link-socail" href="#"><img
+                                    src="{{ asset('assets/images/social-list.png') }}" alt=""></a>
                         </div>
                         @if ($product->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
                             <div class="wrap-price">
@@ -82,7 +95,26 @@
                         <div class="stock-info in-stock">
                             <p class="availability">Availability: <b>{{ $product->stock_status }}</b></p>
                         </div>
-                        <div class="quantity">
+
+                        <div class="">
+                            @foreach ($product->attributeValues->unique('product_attribute_id') as $av)
+                                <div class="row" style="margin-top: 20px">
+                                    <div class="col-xs-2">
+                                        <p>{{ $av->productAttribute->name }}</p>
+                                    </div>
+                                    <div class="col-xs-10">
+                                        <select class="form-control" style="width: 200px"
+                                            wire:model="satt.({{ $av->productAttribute->name }})">
+                                            @foreach ($av->productAttribute->attributeValues->where('product_id', $product->id) as $pav)
+                                                <option value="{{ $pav->value }}">{{ $pav->value }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <div class="quantity" style="margin-top: 10px">
                             <span>Quantity:</span>
                             <div class="quantity-input">
                                 <input type="text" name="product-quatity" value="1" data-max="120" pattern="[0-9]*"
@@ -179,8 +211,8 @@
                                                 <li class="comment byuser comment-author-admin bypostauthor even thread-even depth-1"
                                                     id="li-comment-20">
                                                     <div id="comment-20" class="comment_container">
-                                                        <img alt=""
-                                                            src="{{ asset('assets/images/author-avata.jpg') }}"
+                                                        <img alt="{{ $orderItem->order->user->name }}"
+                                                            src="{{ asset('assets/images/profile') }}/{{ $orderItem->order->user->profile->image }}"
                                                             height="80" width="80">
                                                         <div class="comment-text">
                                                             <div class="star-rating">

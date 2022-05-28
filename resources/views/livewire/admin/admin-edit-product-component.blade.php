@@ -137,7 +137,8 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Category</label>
                                 <div class="col-md-4">
-                                    <select name="" id="" class="form-control" wire:model="category_id">
+                                    <select name="" id="" class="form-control" wire:model="category_id"
+                                        wire:change="changeSubcategory">
                                         <option value="">Select Category</option>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -148,6 +149,52 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Sub Category</label>
+                                <div class="col-md-4">
+                                    <select name="" id="" class="form-control" wire:model="scategory_id">
+                                        <option value="">Select Category</option>
+                                        @foreach ($scategories as $scategory)
+                                            <option value="{{ $scategory->id }}">{{ $scategory->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('scategory_id')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Product Attributes</label>
+                                <div class="col-md-3">
+                                    <select name="" id="" class="form-control" wire:model="attr">
+                                        <option value="">Select Attribute</option>
+                                        @foreach ($pattributes as $pattribute)
+                                            <option value="{{ $pattribute->id }}">{{ $pattribute->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-1">
+                                    <button class="btn btn-info" type="button" wire:click.prevent="add">Add</button>
+                                </div>
+                            </div>
+
+                            @foreach ($inputs as $key => $value)
+                                <div class="form-group">
+                                    <label
+                                        class="col-md-4 control-label">{{ $pattributes->where('id', $attribute_arr[$key])->first()->name }}</label>
+                                    <div class="col-md-3">
+                                        <input type="text"
+                                            placeholder="{{ $pattributes->where('id', $attribute_arr[$key])->first()->name }}"
+                                            class="form-control input-md"
+                                            wire:model="attribute_values.{{ $value }}">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button class="btn btn-danger btn-sm" type="button"
+                                            wire:click.prevent="remove({{ $key }})">Remove</button>
+                                    </div>
+                                </div>
+                            @endforeach
+
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Submit</label>
                                 <div class="col-md-4">

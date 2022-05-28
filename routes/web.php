@@ -1,13 +1,16 @@
 <?php
 
+use App\Http\Livewire\Admin\AdminAddAttributeComponent;
 use App\Http\Livewire\Admin\AdminAddCategoryComponent;
 use App\Http\Livewire\Admin\AdminAddCouponsComponent;
 use App\Http\Livewire\Admin\AdminAddHomeSliderComponent;
 use App\Http\Livewire\Admin\AdminAddProductComponent;
+use App\Http\Livewire\Admin\AdminAttributesComponent;
 use App\Http\Livewire\Admin\AdminCategoryComponent;
 use App\Http\Livewire\Admin\AdminContactComponent;
 use App\Http\Livewire\Admin\AdminCouponsComponent;
 use App\Http\Livewire\Admin\AdminDashboardComponent;
+use App\Http\Livewire\Admin\AdminEditAttributeComponent;
 use App\Http\Livewire\Admin\AdminEditCategoryComponent;
 use App\Http\Livewire\Admin\AdminEditCouponsComponent;
 use App\Http\Livewire\Admin\AdminEditHomeSliderComponent;
@@ -30,8 +33,10 @@ use App\Http\Livewire\ShopComponent;
 use App\Http\Livewire\ThankyouComponent;
 use App\Http\Livewire\User\UserChangePasswordComponent;
 use App\Http\Livewire\User\UserDashboardComponent;
+use App\Http\Livewire\User\UserEditProfileComponent;
 use App\Http\Livewire\User\UserOrderDetailsComponent;
 use App\Http\Livewire\User\UserOrdersComponent;
+use App\Http\Livewire\User\UserProfileComponent;
 use App\Http\Livewire\User\UserReviewComponent;
 use App\Http\Livewire\WishlistComponent;
 use Illuminate\Support\Facades\Route;
@@ -61,7 +66,7 @@ Route::get('/checkout', CheckoutComponent::class)->name('checkout');
 
 Route::get('/product/{slug}', DetailsComponent::class)->name('product.details');
 
-Route::get('/product-category/{category_slug}', CategoryComponent::class)->name('product.category');
+Route::get('/product-category/{category_slug}/{scategory_slug?}', CategoryComponent::class)->name('product.category');
 
 Route::get('/search', SearchComponent::class)->name('product.search');
 
@@ -93,6 +98,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/user/review/{order_item_id}', UserReviewComponent::class)->name('user.review');
 
     Route::get('/user/change-password', UserChangePasswordComponent::class)->name('user.changepassword');
+
+    Route::get('/user/profile', UserProfileComponent::class)->name('user.profile');
+    Route::get('/user/profile/edit', UserEditProfileComponent::class)->name('user.editprofile');
 });
 
 // FOR ADMIN
@@ -101,7 +109,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
     Route::get('/admin/categories', AdminCategoryComponent::class)->name('admin.categories');
     Route::get('/admin/category/add', AdminAddCategoryComponent::class)->name('admin.addcategory');
-    Route::get('/admin/category/edit/{category_slug}', AdminEditCategoryComponent::class)->name('admin.editcategory');
+    Route::get('/admin/category/edit/{category_slug}/{scategory_slug?}', AdminEditCategoryComponent::class)->name('admin.editcategory');
 
     Route::get('/admin/products', AdminProductComponent::class)->name('admin.products');
     Route::get('/admin/product/add', AdminAddProductComponent::class)->name('admin.addproduct');
@@ -125,4 +133,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::get('/admin/contact-us', AdminContactComponent::class)->name('admin.contact');
 
     Route::get('/admin/settings', AdminSettingComponent::class)->name('admin.settings');
+
+    Route::get('/admin/attributes', AdminAttributesComponent::class)->name('admin.attributes');
+    Route::get('/admin/attributes/add', AdminAddAttributeComponent::class)->name('admin.add_attribute');
+    Route::get('/admin/attributes/edit/{attribute_id}', AdminEditAttributeComponent::class)->name('admin.edit_attribute');
 });

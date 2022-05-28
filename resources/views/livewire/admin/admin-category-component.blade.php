@@ -8,6 +8,20 @@
             display: block !important;
         }
 
+        .sclist {
+            list-style: none;
+        }
+
+        .sclist li {
+            line-height: 33px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .slink i {
+            font-size: 16px;
+            margin-left: 12px;
+        }
+
     </style>
     <div class="container" style="padding: 30px 0">
         <div class="row">
@@ -33,6 +47,7 @@
                                     <th>Id</p>
                                     <th>Category</p>
                                     <th>slug</p>
+                                    <th>Sub Category</p>
                                     <th>Action</p>
                                 </tr>
                             </thead>
@@ -42,6 +57,21 @@
                                         <td> {{ $category->id }} </td>>
                                         <td> {{ $category->name }} </td>>
                                         <td> {{ $category->slug }} </td>>
+                                        <td>
+                                            <ul class="sclist">
+                                                @foreach ($category->subCategories as $scategory)
+                                                    <li>
+                                                        <i class="fa fa-caret-right"></i> {{ $scategory->name }}
+                                                        <a href="{{ route('admin.editcategory', ['category_slug' => $category->slug, 'scategory_slug' => $scategory->slug]) }}"
+                                                            class="slink"><i class="fa fa-edit"></i></a>
+                                                        <a href="#" class="slink"
+                                                            onclick="confirm('Are your sure, You want Delete this Subcategory?') || event.stopImmediatePropagation()"
+                                                            wire:click.prevent="deleteSubcategory({{ $scategory->id }})"><i
+                                                                class="fa fa-times text-danger"></i></a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
                                         <td>
                                             <a
                                                 href="{{ route('admin.editcategory', ['category_slug' => $category->slug]) }}"><i
