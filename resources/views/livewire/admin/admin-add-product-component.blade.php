@@ -70,6 +70,16 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-md-4 control-label">Weight Product</label>
+                                <div class="col-md-4">
+                                    <input type="text" placeholder="Weight Product" class="form-control input-md"
+                                        wire:model="weight">
+                                    @error('weight')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-md-4 control-label">Regular Price</label>
                                 <div class="col-md-4">
                                     <input type="text" placeholder="Regular Price" class="form-control input-md"
@@ -90,15 +100,6 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-4 control-label">SKU</label>
-                                <div class="col-md-4">
-                                    <input type="text" placeholder="SKU" class="form-control input-md" wire:model="SKU">
-                                    @error('SKU')
-                                        <p class="text-danger">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label class="col-md-4 control-label">Stock</label>
                                 <div class="col-md-4">
                                     <select name="" id="" class="form-control" wire:model="stock_status">
@@ -108,15 +109,6 @@
                                     @error('stock_status')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Featured</label>
-                                <div class="col-md-4">
-                                    <select name="" id="" class="form-control" wire:model="featured">
-                                        <option value="0">No</option>
-                                        <option value="1">Yes</option>
-                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">

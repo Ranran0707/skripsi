@@ -24,7 +24,7 @@
             </ul>
         </div>
         <div class=" main-content-area">
-            <form action="" wire:submit.prevent="placeOrder" onsubmit="$('#processing').show()">
+            <form action="" wire:submit.prevent="placeOrder" onsubmit="('#processing').show()">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="wrap-address-billing">
@@ -63,33 +63,10 @@
                                     @enderror
                                 </p>
                                 <p class="row-in-form">
-                                    <label for="line1">Line1:</label>
-                                    <input type="text" name="line1" value="" placeholder="Street at apartment number"
-                                        wire:model="line1">
-                                    @error('line1')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </p>
-                                <p class="row-in-form">
-                                    <label for="line2">Line2:</label>
-                                    <input type="text" name="line2" value="" placeholder="Street at apartment number"
-                                        wire:model="line2">
-                                    @error('line2')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </p>
-                                <p class="row-in-form">
-                                    <label for="province">Province<span>*</span></label>
-                                    <input type="text" name="province" value="" placeholder="United States"
-                                        wire:model="province">
-                                    @error('province')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </p>
-                                <p class="row-in-form">
-                                    <label for="city">Town / City<span>*</span></label>
-                                    <input type="text" name="city" value="" placeholder="City name" wire:model="city">
-                                    @error('city')
+                                    <label for="f_address">Full Address:</label>
+                                    <input type="text" name="f_address" value=""
+                                        placeholder="Street at apartment number" wire:model="f_address">
+                                    @error('f_address')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </p>
@@ -101,105 +78,80 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </p>
-                                <p class="row-in-form fill-wife">
-                                    <label class="checkbox-field">
-                                        <input name="different-add" id="different-add" value="1" type="checkbox"
-                                            wire:model="ship_to_different">
-                                        <span>Ship to a different address?</span>
-                                    </label>
+                                {{-- <p class="row-in-form">
+                                    <label for="province">Province<span>*</span></label>
+                                    <input type="text" name="province" value="" placeholder="United States"
+                                        wire:model="province">
+                                    @error('province')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </p> --}}
+                                <p class="row-in-form">
+                                    <label for="province">Province<span>*</span></label>
+                                    <select name="province" id="" class="form-control" wire:model="province">
+                                        <option value="0">CHOOSE PROVINCE</option>
+                                        @forelse ($daftarProvinsi as $p)
+                                            <option value="{{ $p['province_id'] }}">{{ $p['province'] }}
+                                            </option>
+                                        @empty
+                                            <option value="0">Province Not Found</option>
+                                        @endforelse
+                                    </select>
                                 </p>
+                                <p class="row-in-form">
+                                    <label for="city">CITY<span>*</span></label>
+                                    <select name="city" id="" class="form-control" wire:model="city">
+                                        <option value="0">CHOOSE CITY</option>
+                                        @if ($province)
+                                            @forelse ($daftarKota as $p)
+                                                <option value="{{ $p['city_id'] }}">{{ $p['city_name'] }}
+                                                </option>
+                                            @empty
+                                                <option value="0">PILIH KABUPATEN/KOTA</option>
+                                            @endforelse
+                                        @endif
+                                    </select>
+                                </p>
+                                <p class="row-in-form">
+                                    <label for="jasa">JASA<span>*</span></label>
+                                    <select name="jasa" id="" class="form-control" wire:model="jasa">
+                                        <option value="">CHOOSE JASA</option>
+                                        <option value="jne">JNE</option>
+                                        <option value="pos">POS INDONESIA</option>
+                                        <option value="tiki">TIKI</option>
+                                    </select>
+                                </p>
+                                <p class="row-in-form">
+                                    <label for="cost">Ongkir<span>*</span></label>
+                                    <select name="apakek" id="" class="form-control" wire:model="cost">
+                                        <option value="0">CHOOSE GG</option>
+                                        @if ($city && $jasa)
+                                            @forelse ($totalCost[0]['costs'] as $gg)
+                                                <option value="{{ $gg['cost'][0]['value'] }}">
+                                                    {{ $gg['service'] }} :
+                                                    {{ $gg['cost'][0]['value'] }}
+                                                </option>
+                                            @empty
+                                                <option value="0">PILIH KABUPATEN/KOTA</option>
+                                            @endforelse
+                                        @endif
+                                    </select>
+                                </p>
+
                             </div>
                         </div>
                     </div>
-
-                    @if ($ship_to_different)
-                        <div class="col-md-12">
-                            <div class="wrap-address-billing">
-                                <h3 class="box-title">Shipping Address</h3>
-                                <div class="billing-address">
-                                    <p class="row-in-form">
-                                        <label for="fname">first name<span>*</span></label>
-                                        <input type="text" name="fname" value="" placeholder="Your name"
-                                            wire:model="s_firstname">
-                                        @error('s_firstname')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </p>
-                                    <p class="row-in-form">
-                                        <label for="lname">last name<span>*</span></label>
-                                        <input type="text" name="lname" value="" placeholder="Your last name"
-                                            wire:model="s_lastname">
-                                        @error('s_lastname')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </p>
-                                    <p class="row-in-form">
-                                        <label for="email">Email Addreess:</label>
-                                        <input type="email" name="email" value="" placeholder="Type your email"
-                                            wire:model="s_email">
-                                        @error('s_email')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </p>
-                                    <p class="row-in-form">
-                                        <label for="phone">Phone number<span>*</span></label>
-                                        <input type="number" name="phone" value="" placeholder="10 digits format"
-                                            wire:model="s_mobile">
-                                        @error('s_mobile')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </p>
-                                    <p class="row-in-form">
-                                        <label for="line1">Line1:</label>
-                                        <input type="text" name="line1" value=""
-                                            placeholder="Street at apartment number" wire:model="s_line1">
-                                        @error('s_line1')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </p>
-                                    <p class="row-in-form">
-                                        <label for="line2">Line2:</label>
-                                        <input type="text" name="line2" value=""
-                                            placeholder="Street at apartment number" wire:model="s_line2">
-                                        @error('s_line2')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </p>
-                                    <p class="row-in-form">
-                                        <label for="province">Province<span>*</span></label>
-                                        <input type="text" name="province" value="" placeholder="United States"
-                                            wire:model="s_province">
-                                        @error('s_province')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </p>
-                                    <p class="row-in-form">
-                                        <label for="city">Town / City<span>*</span></label>
-                                        <input type="text" name="city" value="" placeholder="City name"
-                                            wire:model="s_city">
-                                        @error('s_city')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </p>
-                                    <p class="row-in-form">
-                                        <label for="zip-code">Postcode / ZIP:</label>
-                                        <input type="number" name="zip-code" value="" placeholder="Your postal code"
-                                            wire:model="s_zipcode">
-                                        @error('s_zipcode')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
 
                 </div>
 
                 <div class="summary summary-checkout">
                     <div class="summary-item payment-method">
-                        <h4 class="title-box">Payment Method</h4>
-                        @if ($paymentmode == 'card')
+                        {{-- <h4 class="title-box">Payment Method</h4> --}}
+                        <h4 class="title-box f-title">Shipping method</h4>
+                        @if ($cost)
+                            <p class="summary-info"><span class="title">{{ $cost }}</span></p>
+                        @endif
+                        {{-- @if ($paymentmode == 'card')
                             <div class="wrap-address-billing">
                                 @if (Session::has('stripe_error'))
                                     <div class="alert alert-danger" role="alert">{{ Session::get('stripe_error') }}
@@ -237,9 +189,9 @@
                                     @enderror
                                 </p>
                             </div>
-                        @endif
+                        @endif --}}
 
-                        <div class="choose-payment-methods">
+                        {{-- <div class="choose-payment-methods">
                             <label class="payment-method">
                                 <input name="payment-method" id="payment-method-bank" value="cod" type="radio"
                                     wire:model="paymentmode">
@@ -263,11 +215,11 @@
                             @error('paymentmode')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
-                        </div>
-                        @if (Session::has('checkout'))
+                        </div> --}}
+                        {{-- @if (Session::has('checkout'))
                             <p class="summary-info grand-total"><span>Grand Total</span> <span
-                                    class="grand-total-price">${{ Session::get('checkout')['total'] }}</span></p>
-                        @endif
+                                    class="grand-total-price">{{ Session::get('checkout')['total'] }}</span></p>
+                        @endif --}}
                         @if ($errors->isEmpty())
                             <div wire:ignore id="processing"
                                 style="font-size: 22px;margin-bottom:20px;padding-left:37px;color:green;display:none">
@@ -277,19 +229,60 @@
                         @endif
 
                         <button type="submit" class="btn btn-medium">Place Order Now</button>
+                        {{-- <button id="pay-button" type="submit">Pay!</button> --}}
 
                     </div>
-                    <div class="summary-item shipping-method">
+                    {{-- <div class="summary-item shipping-method">
                         <h4 class="title-box f-title">Shipping method</h4>
-                        <p class="summary-info"><span class="title">Flat Rate</span></p>
-                        <p class="summary-info"><span class="title">Fixed $0</span></p>
-                    </div>
+                        @if ($cost)
+                            <p class="summary-info"><span class="title">{{ $cost }}</span></p>
+                        @endif
+                        {{-- <p class="summary-info"><span class="title">Fixed $0</span></p> --}}
                 </div>
-            </form>
-
         </div>
-        <!--end main content area-->
+        </form>
+
+    </div>
+    <!--end main content area-->
     </div>
     <!--end container-->
+    {{-- <form id="payment-form" method="GET" action="Payment">
+        <input type="hidden" name="result_data" id="result-data" value="">
+    </form> --}}
+
+
+    {{-- <!-- replace SET_YOUR_CLIENT_KEY_HERE with your client key -->
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="SB-Mid-client-NI9wsutnuosldlV-"></script>
+    <!-- Note: replace with src="https://app.midtrans.com/snap/snap.js" for Production environment -->
+    <script type="text/javascript">
+        // For example trigger on button clicked, or any time you need
+        var payButton = document.getElementById('pay-button');
+        payButton.addEventListener('click', function() {
+            // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+            window.snap.pay('', {
+                onSuccess: function(result) {
+                    /* You may add your own implementation here */
+                    alert("payment success!");
+                    console.log(result);
+                },
+                onPending: function(result) {
+                    /* You may add your own implementation here */
+                    alert("wating your payment!");
+                    console.log(result);
+                },
+                onError: function(result) {
+                    /* You may add your own implementation here */
+                    alert("payment failed!");
+                    console.log(result);
+                },
+                onClose: function() {
+                    /* You may add your own implementation here */
+                    alert('you closed the popup without finishing the payment');
+                }
+            })
+        });
+    </script> --}}
+
 
 </main>

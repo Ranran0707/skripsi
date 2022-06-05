@@ -16,7 +16,10 @@
                 <div class="col-md-12 text-center">
                     <h2>Thank you for your order</h2>
                     <p>A confirmation email was sent.</p>
-                    <a href="/shop" class="btn btn-submit btn-submitx">Continue Shopping</a>
+                    <br>
+                    <h2>Please click the Payment for finish the Order ! </h2>
+                    <a href="/shop" class="btn btn-submit btn-submitx">Payment</a>
+                    <a href="/shop" class="btn btn-submit btn-submitx">Back to Shop</a>
                 </div>
             </div>
         </div>

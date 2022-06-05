@@ -10,7 +10,7 @@
 
 <body>
     <p>Hi {{ $order->firstname }} {{ $order->lastname }}</p>
-    <p>Your order has been Success</p>
+    <p>Your order has been Success, Please finish the payment for finish the Order !</p>
     <br>
 
     <table style="width: 600px; text-align: right">
@@ -31,7 +31,7 @@
                     </td>
                     <td>{{ $item->product->name }}</td>
                     <td>{{ $item->quantity }}</td>
-                    <td>${{ $item->price * $item->quantity }}</td>
+                    <td>RP : {{ $item->price * $item->quantity }}</td>
                 </tr>
             @endforeach
             <tr>

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Mail\OrderMail;
+use App\Models\Product;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Shipping;
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use Stripe;
+use Kavist\RajaOngkir\RajaOngkir;
+// use Kavist\RajaOngkir\Facades\RajaOngkir;
 
 class CheckoutComponent extends Component
 {
@@ -22,21 +25,11 @@ class CheckoutComponent extends Component
     public $lastname;
     public $email;
     public $mobile;
-    public $line1;
+    public $f_address;
     public $line2;
     public $city;
     public $province;
     public $zipcode;
-
-    public $s_firstname;
-    public $s_lastname;
-    public $s_email;
-    public $s_mobile;
-    public $s_line1;
-    public $s_line2;
-    public $s_city;
-    public $s_province;
-    public $s_zipcode;
 
     public $paymentmode;
     public $thankyou;
@@ -46,6 +39,21 @@ class CheckoutComponent extends Component
     public $exp_year;
     public $cvc;
 
+    private $apiKey = '1418cb13a5cb7a1562715512e1a14b81';
+
+    public $provinsi_id;
+    public $kota_id;
+    public $jasa;
+    public $daftarProvinsi;
+    public $daftarKota;
+    public $coba;
+    public $cost;
+    public $totalCost;
+
+
+    public $snapToken;
+
+
     public function update($fields)
     {
         $this->validateOnly($fields, [
@@ -53,35 +61,11 @@ class CheckoutComponent extends Component
             'lastname' => 'required',
             'email' => 'required|email',
             'mobile' => 'required|numeric',
-            'line1' => 'required',
+            'f_address' => 'required',
             'city' => 'required',
             'province' => 'required',
             'zipcode' => 'required',
-            'paymentmode' => 'required'
-
         ]);
-
-        if ($this->ship_to_different) {
-            $this->validateOnly($fields, [
-                's_firstname' => 'required',
-                's_lastname' => 'required',
-                's_email' => 'required|email',
-                's_mobile' => 'required|numeric',
-                's_line1' => 'required',
-                's_city' => 'required',
-                's_province' => 'required',
-                's_zipcode' => 'required',
-            ]);
-        }
-
-        if ($this->paymentmode == 'card') {
-            $this->validateOnly($fields, [
-                'card_no' => 'required|numeric',
-                'exp_month' => 'required|numeric',
-                'exp_year' => 'required|numeric',
-                'cvc' => 'required|numeric',
-            ]);
-        }
     }
 
     public function placeOrder()
@@ -91,21 +75,11 @@ class CheckoutComponent extends Component
             'lastname' => 'required',
             'email' => 'required|email',
             'mobile' => 'required|numeric',
-            'line1' => 'required',
+            'f_address' => 'required',
             'city' => 'required',
             'province' => 'required',
             'zipcode' => 'required',
-            'paymentmode' => 'required'
         ]);
-
-        if ($this->paymentmode == 'card') {
-            $this->validate([
-                'card_no' => 'required|numeric',
-                'exp_month' => 'required|numeric',
-                'exp_year' => 'required|numeric',
-                'cvc' => 'required|numeric',
-            ]);
-        }
 
         $order = new Order();
         $order->user_id = Auth::user()->id;
@@ -118,13 +92,11 @@ class CheckoutComponent extends Component
         $order->lastname = $this->lastname;
         $order->email = $this->email;
         $order->mobile = $this->mobile;
-        $order->line1 = $this->line1;
-        $order->line2 = $this->line2;
+        $order->f_address = $this->f_address;
         $order->city = $this->city;
         $order->province = $this->province;
         $order->zipcode = $this->zipcode;
         $order->status = 'ordered';
-        $order->is_shipping_different = $this->ship_to_different ? 1 : 0;
         $order->save();
 
         foreach (Cart::instance('cart')->content() as $item) {
@@ -138,91 +110,23 @@ class CheckoutComponent extends Component
             }
             $orderItem->save();
         }
-        if ($this->ship_to_different) {
-            $this->validate([
-                's_firstname' => 'required',
-                's_lastname' => 'required',
-                's_email' => 'required|email',
-                's_mobile' => 'required|numeric',
-                's_line1' => 'required',
-                's_city' => 'required',
-                's_province' => 'required',
-                's_zipcode' => 'required',
-            ]);
 
-            $shipping = new Shipping();
-            $shipping->order_id = $order->id;
-            $shipping->firstname = $this->s_firstname;
-            $shipping->lastname = $this->s_lastname;
-            $shipping->email = $this->s_email;
-            $shipping->mobile = $this->s_mobile;
-            $shipping->line1 = $this->s_line1;
-            $shipping->line2 = $this->s_line2;
-            $shipping->city = $this->s_city;
-            $shipping->province = $this->s_province;
-            $shipping->zipcode = $this->s_zipcode;
-            $shipping->save();
-        }
+        $shipping = new Shipping();
+        $shipping->order_id = $order->id;
+        $shipping->firstname = $this->firstname;
+        $shipping->lastname = $this->lastname;
+        $shipping->email = $this->email;
+        $shipping->mobile = $this->mobile;
+        $shipping->f_address = $this->f_address;
+        $shipping->city = $this->city;
+        $shipping->province = $this->province;
+        $shipping->zipcode = $this->zipcode;
+        $shipping->cost = $this->cost;
+        $shipping->save();
 
-        if ($this->paymentmode == 'cod') {
-            $this->makeTransaction($order->id, 'pending');
-            $this->resetCart();
-        } elseif ($this->paymentmode == 'card') {
-            $stripe = Stripe::make(env('STRIPE_KEY'));
+        $this->makeTransaction($order->id);
+        $this->resetCart();
 
-            try {
-                $token = $stripe->tokens()->create([
-                    'card' => [
-                        'number' => $this->card_no,
-                        'exp_month' => $this->exp_month,
-                        'exp_year' => $this->exp_year,
-                        'cvc' => $this->cvc
-                    ]
-                ]);
-                if (!isset($token['id'])) {
-                    session()->flash('stripe_error', 'The Stripe Token was not generated correctly !');
-                    $this->thankyou = 0;
-                }
-                $customer = $stripe->customers()->create([
-                    'name' => $this->firstname . ' ' . $this->lastname,
-                    'email' => $this->email,
-                    'phone' => $this->mobile,
-                    'address' => [
-                        'line1' => $this->line1,
-                        'postal_code' => $this->zipcode,
-                        'city' => $this->city,
-                        'state' => $this->province,
-                    ],
-                    'shipping' => [
-                        'name' => $this->firstname . ' ' . $this->lastname,
-                        'address' => [
-                            'line1' => $this->line1,
-                            'postal_code' => $this->zipcode,
-                            'city' => $this->city,
-                            'state' => $this->province,
-                        ],
-                    ],
-                    'source' => $token['id']
-                ]);
-                $charge = $stripe->charges()->create([
-                    'customer' => $customer['id'],
-                    'currency' => 'USD',
-                    'amount' => session()->get('checkout')['total'],
-                    'description' => 'Payment for order no ' . $order->id
-                ]);
-
-                if ($charge['status'] == 'succeeded') {
-                    $this->makeTransaction($order->id, 'approved');
-                    $this->resetCart();
-                } else {
-                    session()->flash('stripe_error', 'Error in Transaction !');
-                    $this->thankyou = 0;
-                }
-            } catch (Exception $e) {
-                session()->flash('stripe_error', $e->getMessage());
-                $this->thankyou = 0;
-            }
-        }
         $this->sendOrderConfirmationMail($order);
     }
 
@@ -233,13 +137,11 @@ class CheckoutComponent extends Component
         session()->forget('checkout');
     }
 
-    public function makeTransaction($order_id, $status)
+    public function makeTransaction($order_id)
     {
         $transaction = new Transaction();
         $transaction->user_id = Auth::user()->id;
         $transaction->order_id = $order_id;
-        $transaction->mode = $this->paymentmode;
-        $transaction->status = $status;
         $transaction->save();
     }
 
@@ -262,6 +164,23 @@ class CheckoutComponent extends Component
     public function render()
     {
         $this->verifyForCheckout();
+
+        $rajaOngkir = new RajaOngkir($this->apiKey);
+        $this->daftarProvinsi = $rajaOngkir->provinsi()->all();
+        // dd($rajaOngkir);
+        if ($this->province) {
+            $this->daftarKota = $rajaOngkir->kota()->dariProvinsi($this->province)->get();
+        }
+        if ($this->city && $this->jasa) {
+            $this->totalCost = $rajaOngkir->ongkosKirim([
+                'origin' => 489,
+                'destination' => $this->city,
+                'weight' => 10000,
+                'courier' => $this->jasa,
+            ])->get();
+        }
+
+
         return view('livewire.checkout-component')->layout('layouts.base');
     }
 }

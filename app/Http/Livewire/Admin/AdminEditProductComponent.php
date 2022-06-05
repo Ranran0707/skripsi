@@ -23,9 +23,8 @@ class AdminEditProductComponent extends Component
     public $description;
     public $regular_price;
     public $sale_price;
-    public $SKU;
+    public $weight;
     public $stock_status;
-    public $featured;
     public $quantity;
     public $image;
     public $category_id;
@@ -50,9 +49,8 @@ class AdminEditProductComponent extends Component
         $this->description = $product->description;
         $this->regular_price = $product->regular_price;
         $this->sale_price = $product->sale_price;
-        $this->SKU = $product->SKU;
+        $this->weight = $product->weight;
         $this->stock_status = $product->stock_status;
-        $this->featured = $product->featured;
         $this->quantity = $product->quantity;
         $this->image = $product->image;
         $this->category_id = $product->category_id;
@@ -98,7 +96,7 @@ class AdminEditProductComponent extends Component
             'description' => 'required',
             'regular_price' => 'required|numeric',
             'sale_price' => 'numeric|nullable',
-            'SKU' => 'required',
+            'weight' => 'required',
             'stock_status' => 'required',
             'quantity' => 'required|numeric',
             'category_id' => 'required'
@@ -114,7 +112,7 @@ class AdminEditProductComponent extends Component
             'description' => 'required',
             'regular_price' => 'required|numeric',
             'sale_price' => 'numeric|nullable',
-            'SKU' => 'required',
+            'weight' => 'required',
             'stock_status' => 'required',
             'quantity' => 'required|numeric',
             'category_id' => 'required'
@@ -126,9 +124,8 @@ class AdminEditProductComponent extends Component
         $product->description = $this->description;
         $product->regular_price = $this->regular_price;
         $product->sale_price = $this->sale_price;
-        $product->SKU = $this->SKU;
+        $product->weight = $this->weight;
         $product->stock_status = $this->stock_status;
-        $product->featured = $this->featured;
         $product->quantity = $this->quantity;
         if ($this->newimage) {
             $imageName = Carbon::now()->timestamp . '.' . $this->newimage->extension();

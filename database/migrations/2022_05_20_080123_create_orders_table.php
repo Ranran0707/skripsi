@@ -24,13 +24,11 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('mobile');
             $table->string('email');
-            $table->string('line1');
-            $table->string('line2')->nullable();
+            $table->string('f_address');
             $table->string('city');
             $table->string('province');
             $table->string('zipcode');
-            $table->enum('status', ['ordered', 'delivered', 'canceled'])->default('ordered');
-            $table->boolean('is_shipping_different')->default(false);
+            $table->enum('status', ['ordered', 'approved', 'delivered', 'canceled'])->default('ordered');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

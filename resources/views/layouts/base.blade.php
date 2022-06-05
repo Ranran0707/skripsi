@@ -14,9 +14,9 @@
         href="https://fonts.googleapis.com/css?family=Open%20Sans:300,400,400italic,600,600italic,700,700italic&amp;subset=latin,latin-ext"
         rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/animate.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/animate.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/font-awesome.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
+
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/flexslider.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/chosen.min.css') }}">
@@ -33,6 +33,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.min.css"
         integrity="sha512-qveKnGrvOChbSzAdtSs8p69eoLegyh+1hwOMbmpCViIwj7rn4oJjdmMvWOuyQlTOZgTlZA0N2PXA7iA8/2TUYA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
 
 
     @livewireStyles
@@ -57,53 +59,14 @@
                         <div class="topbar-menu left-menu">
                             <ul>
                                 <li class="menu-item">
-                                    {{-- <a title="Hotline: (+123) 456 789" href="#"><span
-                                            class="icon label-before fa fa-mobile"></span>Hotline: (+123) 456 789</a> --}}
+                                    <a title="Hotline: (+123) 456 789" href="#"><span
+                                            class="icon label-before fa fa-mobile"></span>Hotline: (+123) 456 789</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="topbar-menu right-menu">
                             <ul>
 
-                                {{-- <li class="menu-item lang-menu menu-item-has-children parent">
-                                    <a title="English" href="#"><span class="img label-before"><img
-                                                src="{{ asset('assets/images/lang-en.png') }}"
-                                                alt="lang-en"></span>English<i class="fa fa-angle-down"
-                                            aria-hidden="true"></i></a>
-                                    <ul class="submenu lang">
-                                        <li class="menu-item"><a title="hungary" href="#"><span
-                                                    class="img label-before"><img
-                                                        src="{{ asset('assets/images/lang-hun.png ') }}"
-                                                        alt="lang-hun"></span>Hungary</a></li>
-                                        <li class="menu-item"><a title="german" href="#"><span
-                                                    class="img label-before"><img
-                                                        src="{{ asset(' assets/images/lang-ger.png') }}"
-                                                        alt="lang-ger"></span>German</a></li>
-                                        <li class="menu-item"><a title="french" href="#"><span
-                                                    class="img label-before"><img
-                                                        src="{{ asset('assets/images/lang-fra.png') }}"
-                                                        alt="lang-fre"></span>French</a></li>
-                                        <li class="menu-item"><a title="canada" href="#"><span
-                                                    class="img label-before"><img
-                                                        src="{{ asset('assets/images/lang-can.png') }}"
-                                                        alt="lang-can"></span>Canada</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item menu-item-has-children parent">
-                                    <a title="Dollar (USD)" href="#">Dollar (USD)<i class="fa fa-angle-down"
-                                            aria-hidden="true"></i></a>
-                                    <ul class="submenu curency">
-                                        <li class="menu-item">
-                                            <a title="Pound (GBP)" href="#">Pound (GBP)</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a title="Euro (EUR)" href="#">Euro (EUR)</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a title="Dollar (USD)" href="#">Dollar (USD)</a>
-                                        </li>
-                                    </ul>
-                                </li> --}}
                                 @if (Route::has('login'))
                                     @auth
                                         @if (Auth::user()->utype === 'ADM')
@@ -241,23 +204,6 @@
                     </div>
 
                     <div class="nav-section header-sticky">
-                        <div class="header-nav-section">
-                            <div class="container">
-                                {{-- <ul class="nav menu-nav clone-main-menu" id="mercado_haead_menu" data-menuname="Sale Info">
-                                    <li class="menu-item"><a href="#" class="link-term">Weekly Featured</a><span
-                                            class="nav-label hot-label">hot</span></li>
-                                    <li class="menu-item"><a href="#" class="link-term">Hot Sale items</a><span
-                                            class="nav-label hot-label">hot</span></li>
-                                    <li class="menu-item"><a href="#" class="link-term">Top new items</a><span
-                                            class="nav-label hot-label">hot</span></li>
-                                    <li class="menu-item"><a href="#" class="link-term">Top Selling</a><span
-                                            class="nav-label hot-label">hot</span></li>
-                                    <li class="menu-item"><a href="#" class="link-term">Top rated items</a><span
-                                            class="nav-label hot-label">hot</span></li>
-                                </ul> --}}
-                            </div>
-                        </div>
-
                         <div class="primary-nav-section">
                             <div class="container">
                                 <ul class="nav primary clone-main-menu" id="mercado_main" data-menuname="Main menu">
@@ -305,10 +251,6 @@
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
-        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment-with-locales.min.js"
-                integrity="sha512-vFABRuf5oGUaztndx4KoAEUVQnOvAIFs59y4tO0DILGWhQiFnFHiR+ZJfxLDyJlXgeut9Z07Svuvm+1Jv89w5g=="
-                crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
-
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
                 integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
                 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -322,6 +264,8 @@
 
         <script src="https://cdn.tiny.cloud/1/65n8t8y7mguz7uc8pjpuzupqwbd2q4671qcj4wti4lty2b15/tinymce/6/tinymce.min.js"
                 referrerpolicy="origin"></script>
+
+
 
         @livewireScripts
 

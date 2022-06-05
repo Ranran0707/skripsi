@@ -20,11 +20,11 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('mobile');
             $table->string('email');
-            $table->string('line1');
-            $table->string('line2')->nullable();
+            $table->string('f_address');
             $table->string('city');
             $table->string('province');
             $table->string('zipcode');
+            $table->string('cost');
             $table->timestamps();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });
