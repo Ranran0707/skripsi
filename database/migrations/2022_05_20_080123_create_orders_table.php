@@ -14,12 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
+            $table->id()->uni;
             $table->bigInteger('user_id')->unsigned();
-            $table->decimal('subtotal');
-            $table->decimal('discount')->default(0);
-            $table->decimal('tax');
-            $table->decimal('total');
+            $table->bigInteger('subtotal');
+            $table->integer('discount')->default(0);
+            $table->integer('tax');
+            $table->bigInteger('total');
+            $table->integer('cost');
             $table->string('firstname');
             $table->string('lastname');
             $table->string('mobile');
@@ -28,7 +29,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('province');
             $table->string('zipcode');
-            $table->enum('status', ['ordered', 'approved', 'delivered', 'canceled'])->default('ordered');
+            $table->enum('status', ['ordered', 'approved', 'pending', 'delivered', 'canceled'])->default('ordered');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

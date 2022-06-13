@@ -33,6 +33,7 @@ class CheckoutComponent extends Component
 
     public $paymentmode;
     public $thankyou;
+    public $oid;
 
     public $card_no;
     public $exp_month;
@@ -86,7 +87,7 @@ class CheckoutComponent extends Component
         $order->subtotal = session()->get('checkout')['subtotal'];
         $order->discount = session()->get('checkout')['discount'];
         $order->tax = session()->get('checkout')['tax'];
-        $order->total = session()->get('checkout')['total'];
+        $order->total = session()->get('checkout')['total'] . $this->cost;
 
         $order->firstname = $this->firstname;
         $order->lastname = $this->lastname;
@@ -96,6 +97,7 @@ class CheckoutComponent extends Component
         $order->city = $this->city;
         $order->province = $this->province;
         $order->zipcode = $this->zipcode;
+        $order->cost = $this->cost;
         $order->status = 'ordered';
         $order->save();
 
@@ -108,6 +110,7 @@ class CheckoutComponent extends Component
             if ($item->options) {
                 $orderItem->options = serialize($item->options);
             }
+
             $orderItem->save();
         }
 
@@ -123,6 +126,9 @@ class CheckoutComponent extends Component
         $shipping->zipcode = $this->zipcode;
         $shipping->cost = $this->cost;
         $shipping->save();
+
+        $this->oid = $shipping->id;
+        session()->put('order', ['order' => $order->id]);
 
         $this->makeTransaction($order->id);
         $this->resetCart();
@@ -142,6 +148,7 @@ class CheckoutComponent extends Component
         $transaction = new Transaction();
         $transaction->user_id = Auth::user()->id;
         $transaction->order_id = $order_id;
+        $transaction->status = 'pending';
         $transaction->save();
     }
 
@@ -165,9 +172,9 @@ class CheckoutComponent extends Component
     {
         $this->verifyForCheckout();
 
+
         $rajaOngkir = new RajaOngkir($this->apiKey);
         $this->daftarProvinsi = $rajaOngkir->provinsi()->all();
-        // dd($rajaOngkir);
         if ($this->province) {
             $this->daftarKota = $rajaOngkir->kota()->dariProvinsi($this->province)->get();
         }
@@ -175,7 +182,7 @@ class CheckoutComponent extends Component
             $this->totalCost = $rajaOngkir->ongkosKirim([
                 'origin' => 489,
                 'destination' => $this->city,
-                'weight' => 10000,
+                'weight' => 100,
                 'courier' => $this->jasa,
             ])->get();
         }

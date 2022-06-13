@@ -73,13 +73,14 @@
                                         @endif
 
                                         <div class="price-field produtc-price">
-                                            <p class="price">${{ $item->price }}</p>
+                                            <p class="price">{{ Str::rupiah($item->price) }}</p>
                                         </div>
                                         <div class="quantity">
-                                            <h5>{{ $item->quantity }}</h5>
+                                            <h5>Quantity : {{ $item->quantity }}</h5>
                                         </div>
                                         <div class="price-field sub-total">
-                                            <p class="price">${{ $item->price * $item->quantity }}</p>
+                                            <p class="price">
+                                                {{ Str::rupiah($item->price * $item->quantity) }}</p>
                                         </div>
                                         @if ($order->status == 'delivered' && $item->rstatus == false)
                                             <div class="price-field sub-total">
@@ -97,13 +98,14 @@
                             <div class="order-summary">
                                 <h4 class="title-box">Order Summary</h4>
                                 <p class="summary-info"><span class="title">Subtotal</span><b
-                                        class="index">${{ $order->subtotal }}</b></p>
-                                <p class="summary-info"><span class="title">Tax</span><b
-                                        class="index">${{ $order->tax }}</b></p>
+                                        class="index">{{ Str::rupiah($order->subtotal) }}</b></p>
+                                {{-- <p class="summary-info"><span class="title">Tax</span><b
+                                        class="index">Rp : {{ $order->tax }}</b></p> --}}
                                 <p class="summary-info"><span class="title">Shipping</span><b
-                                        class="index">Free Shipping</b></p>
+                                        class="index">{{ Str::rupiah($order->cost) }}</b></p>
                                 <p class="summary-info"><span class="title">Total</span><b
-                                        class="index">${{ $order->total }}</b></p>
+                                        class="index">{{ Str::rupiah($order->total + $order->cost) }}</b>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -146,6 +148,10 @@
                             <tr>
                                 <th>Zipcode</th>
                                 <td>{{ $order->zipcode }}</td>
+                            </tr>
+                            <tr>
+                                <th>Shipping</th>
+                                <td>{{ Str::rupiah($order->cost) }}</td>
                             </tr>
                         </table>
                     </div>
@@ -196,7 +202,7 @@
             </div>
         @endif
 
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -220,7 +226,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
     </div>
 </div>

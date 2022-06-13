@@ -12,7 +12,6 @@
             width: 100%;
             border: 1px solid #e6e6e6;
         }
-
     </style>
 
     <div class="container">
@@ -24,7 +23,7 @@
             </ul>
         </div>
         <div class=" main-content-area">
-            <form action="" wire:submit.prevent="placeOrder" onsubmit="('#processing').show()">
+            <form action="" wire:submit.prevent="placeOrder" onsubmit="(#processing).show()">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="wrap-address-billing">
@@ -147,10 +146,29 @@
                 <div class="summary summary-checkout">
                     <div class="summary-item payment-method">
                         {{-- <h4 class="title-box">Payment Method</h4> --}}
-                        <h4 class="title-box f-title">Shipping method</h4>
-                        @if ($cost)
-                            <p class="summary-info"><span class="title">{{ $cost }}</span></p>
-                        @endif
+                        <h4 class="title-box f-title">Info Order :</h4>
+                        <div class="panel-body">
+                            <table class="table">
+                                @if ($cost && $jasa)
+                                    <tr>
+                                        <th>Total Harga</th>
+                                        <td> : </td>
+                                        <td>{{ Str::rupiah(Session::get('checkout')['total'] + $cost) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Harga Ongkir</th>
+                                        <td> : </td>
+                                        <td>{{ Str::rupiah($cost) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Jasa Pengiriman</th>
+                                        <td> : </td>
+                                        <td>{{ $jasa }}</td>
+                                    </tr>
+                                @endif
+                            </table>
+                        </div>
+                        <br><br><br>
                         {{-- @if ($paymentmode == 'card')
                             <div class="wrap-address-billing">
                                 @if (Session::has('stripe_error'))
@@ -229,60 +247,11 @@
                         @endif
 
                         <button type="submit" class="btn btn-medium">Place Order Now</button>
-                        {{-- <button id="pay-button" type="submit">Pay!</button> --}}
-
                     </div>
-                    {{-- <div class="summary-item shipping-method">
-                        <h4 class="title-box f-title">Shipping method</h4>
-                        @if ($cost)
-                            <p class="summary-info"><span class="title">{{ $cost }}</span></p>
-                        @endif
-                        {{-- <p class="summary-info"><span class="title">Fixed $0</span></p> --}}
                 </div>
+            </form>
+
         </div>
-        </form>
-
     </div>
-    <!--end main content area-->
-    </div>
-    <!--end container-->
-    {{-- <form id="payment-form" method="GET" action="Payment">
-        <input type="hidden" name="result_data" id="result-data" value="">
-    </form> --}}
-
-
-    {{-- <!-- replace SET_YOUR_CLIENT_KEY_HERE with your client key -->
-    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
-        data-client-key="SB-Mid-client-NI9wsutnuosldlV-"></script>
-    <!-- Note: replace with src="https://app.midtrans.com/snap/snap.js" for Production environment -->
-    <script type="text/javascript">
-        // For example trigger on button clicked, or any time you need
-        var payButton = document.getElementById('pay-button');
-        payButton.addEventListener('click', function() {
-            // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
-            window.snap.pay('', {
-                onSuccess: function(result) {
-                    /* You may add your own implementation here */
-                    alert("payment success!");
-                    console.log(result);
-                },
-                onPending: function(result) {
-                    /* You may add your own implementation here */
-                    alert("wating your payment!");
-                    console.log(result);
-                },
-                onError: function(result) {
-                    /* You may add your own implementation here */
-                    alert("payment failed!");
-                    console.log(result);
-                },
-                onClose: function() {
-                    /* You may add your own implementation here */
-                    alert('you closed the popup without finishing the payment');
-                }
-            })
-        });
-    </script> --}}
-
 
 </main>

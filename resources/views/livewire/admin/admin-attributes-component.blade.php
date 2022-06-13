@@ -21,7 +21,6 @@
             font-size: 16px;
             margin-left: 12px;
         }
-
     </style>
     <div class="container" style="padding: 30px 0">
         <div class="row">
@@ -41,35 +40,37 @@
                         @if (Session::has('message'))
                             <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
                         @endif
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Id</p>
-                                    <th>Name</p>
-                                    <th>Created At</p>
-                                    <th>Action</p>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($pattributes as $pattribute)
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
                                     <tr>
-                                        <td> {{ $pattribute->id }} </td>>
-                                        <td> {{ $pattribute->name }} </td>>
-                                        <td> {{ $pattribute->created_at }} </td>>
-                                        <td>
-                                            <a
-                                                href="{{ route('admin.edit_attribute', ['attribute_id' => $pattribute->id]) }}"><i
-                                                    class="fa fa-edit fa-2x"></i></a>
-                                            <a href="#"
-                                                onclick="confirm('Are you sure, You want to DELETE this Category ?') || event.stopImmediatePropagation() "
-                                                wire:click.prevent="deleteAttribute({{ $pattribute->id }})"
-                                                style=" margin-left: 10px"><i
-                                                    class="fa fa-times fa-2x text-danger"></i></a>
-                                        </td>
+                                        <th>Id</p>
+                                        <th>Name</p>
+                                        <th>Created At</p>
+                                        <th>Action</p>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($pattributes as $pattribute)
+                                        <tr>
+                                            <td> {{ $pattribute->id }} </td>>
+                                            <td> {{ $pattribute->name }} </td>>
+                                            <td> {{ $pattribute->created_at }} </td>>
+                                            <td>
+                                                <a
+                                                    href="{{ route('admin.edit_attribute', ['attribute_id' => $pattribute->id]) }}"><i
+                                                        class="fa fa-edit fa-2x"></i></a>
+                                                <a href="#"
+                                                    onclick="confirm('Are you sure, You want to DELETE this Category ?') || event.stopImmediatePropagation() "
+                                                    wire:click.prevent="deleteAttribute({{ $pattribute->id }})"
+                                                    style=" margin-left: 10px"><i
+                                                        class="fa fa-times fa-2x text-danger"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                         {{ $pattributes->links() }}
                     </div>
                 </div>

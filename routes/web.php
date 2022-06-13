@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\AboutComponent;
 use App\Http\Livewire\Admin\AdminAddAttributeComponent;
 use App\Http\Livewire\Admin\AdminAddCategoryComponent;
 use App\Http\Livewire\Admin\AdminAddCouponsComponent;
@@ -35,6 +36,7 @@ use App\Http\Livewire\User\UserChangePasswordComponent;
 use App\Http\Livewire\User\UserDashboardComponent;
 use App\Http\Livewire\User\UserEditProfileComponent;
 use App\Http\Livewire\User\UserOrderDetailsComponent;
+use App\Http\Livewire\User\UserOrdersPaymentComponent;
 use App\Http\Livewire\User\UserOrdersComponent;
 use App\Http\Livewire\User\UserProfileComponent;
 use App\Http\Livewire\User\UserReviewComponent;
@@ -76,6 +78,8 @@ Route::get('/thank-you', ThankyouComponent::class)->name('thankyou');
 
 Route::get('/contact-us', ContactComponent::class)->name('contact');
 
+Route::get('/about', AboutComponent::class)->name('about');
+
 
 // Route::middleware([
 //     'auth:sanctum',
@@ -91,9 +95,12 @@ Route::get('/contact-us', ContactComponent::class)->name('contact');
 // FOR USER
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/user/dashboard', UserDashboardComponent::class)->name('user.dashboard');
+    // Route::get('/thank-you', ThankyouComponent::class)->name('thankyou');
+
 
     Route::get('/user/orders', UserOrdersComponent::class)->name('user.orders');
     Route::get('/user/orders/{order_id}', UserOrderDetailsComponent::class)->name('user.orderdetails');
+    Route::get('/user/orders/payment/{order_id}', UserOrdersPaymentComponent::class)->name('user.payment');
 
     Route::get('/user/review/{order_item_id}', UserReviewComponent::class)->name('user.review');
 

@@ -7,7 +7,6 @@
             text-decoration: line-through;
             padding-left: 10px;
         }
-
     </style>
 
     <div class="container">
@@ -51,7 +50,6 @@
                                 .color-gray {
                                     color: #e6e6e6 !important;
                                 }
-
                             </style>
                             @php
                                 $avgrating = 0;
@@ -77,19 +75,16 @@
                         <div class="short-desc">
                             {!! $product->short_description !!}
                         </div>
-                        <div class="wrap-social">
-                            <a class="link-socail" href="#"><img
-                                    src="{{ asset('assets/images/social-list.png') }}" alt=""></a>
-                        </div>
                         @if ($product->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
                             <div class="wrap-price">
                                 <span class="product-price">${{ $product->sale_price }}</span>
-                                <del><span class="product-price regprice">${{ $product->regular_price }}</span></del>
+                                <del><span
+                                        class="product-price regprice">{{ Str::rupiah($product->regular_price) }}</span></del>
 
                             </div>
                         @else
                             <div class="wrap-price"><span
-                                    class="product-price">${{ $product->regular_price }}</span>
+                                    class="product-price">{{ Str::rupiah($product->regular_price) }}</span>
                             </div>
                         @endif
                         <div class="stock-info in-stock">
@@ -105,6 +100,7 @@
                                     <div class="col-xs-10">
                                         <select class="form-control" style="width: 200px"
                                             wire:model="satt.({{ $av->productAttribute->name }})">
+                                            <option value="">Choose {{ $av->productAttribute->name }}</option>
                                             @foreach ($av->productAttribute->attributeValues->where('product_id', $product->id) as $pav)
                                                 <option value="{{ $pav->value }}">{{ $pav->value }}</option>
                                             @endforeach
@@ -134,11 +130,6 @@
                                     wire:click.prevent="store({{ $product->id }}, '{{ $product->name }}', {{ $product->regular_price }})">Add
                                     to Cart</a>
                             @endif
-
-                            <div class="wrap-btn">
-                                <a href="#" class="btn btn-compare">Add Compare</a>
-                                <a href="#" class="btn btn-wishlist">Add Wishlist</a>
-                            </div>
                         </div>
                     </div>
                     <div class="advance-info">
@@ -156,18 +147,14 @@
                                     <tbody>
                                         <tr>
                                             <th>Weight</th>
-                                            <td class="product_weight">1 kg</td>
+                                            <td class="product_weight">{{ $product->weight }} Kg</td>
                                         </tr>
-                                        <tr>
-                                            <th>Dimensions</th>
-                                            <td class="product_dimensions">12 x 15 x 23 cm</td>
-                                        </tr>
-                                        <tr>
+                                        {{-- <tr>
                                             <th>Color</th>
                                             <td>
                                                 <p>Black, Blue, Grey, Violet, Yellow</p>
                                             </td>
-                                        </tr>
+                                        </tr> --}}
                                     </tbody>
                                 </table>
                             </div>
@@ -198,7 +185,6 @@
                                         .width-100-percent {
                                             width: 100%
                                         }
-
                                     </style>
 
                                     <div id="comments">
@@ -238,7 +224,7 @@
                                                 </li>
                                             @endforeach
                                         </ol>
-                                    </div><!-- #comments -->
+                                    </div>
 
                                 </div>
                             </div>
@@ -246,51 +232,8 @@
                     </div>
                 </div>
             </div>
-            <!--end main products area-->
 
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 sitebar">
-                {{-- <div class="widget widget-our-services ">
-                    <div class="widget-content">
-                        <ul class="our-services">
-
-                            <li class="service">
-                                <a class="link-to-service" href="#">
-                                    <i class="fa fa-truck" aria-hidden="true"></i>
-                                    <div class="right-content">
-                                        <b class="title">Free Shipping</b>
-                                        <span class="subtitle">On Oder Over $99</span>
-                                        <p class="desc">Lorem Ipsum is simply dummy text of the printing...
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li class="service">
-                                <a class="link-to-service" href="#">
-                                    <i class="fa fa-gift" aria-hidden="true"></i>
-                                    <div class="right-content">
-                                        <b class="title">Special Offer</b>
-                                        <span class="subtitle">Get a gift!</span>
-                                        <p class="desc">Lorem Ipsum is simply dummy text of the printing...
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li class="service">
-                                <a class="link-to-service" href="#">
-                                    <i class="fa fa-reply" aria-hidden="true"></i>
-                                    <div class="right-content">
-                                        <b class="title">Order Return</b>
-                                        <span class="subtitle">Return within 7 days</span>
-                                        <p class="desc">Lorem Ipsum is simply dummy text of the printing...
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div><!-- Categories widget--> --}}
 
                 <div class="widget mercado-widget widget-product">
                     <h2 class="widget-title">Popular Products</h2>
@@ -311,7 +254,7 @@
                                             <a href="{{ route('product.details', ['slug' => $p_product->slug]) }}"
                                                 class="product-name"><span>{{ $p_product->name }}</span></a>
                                             <div class="wrap-price"><span
-                                                    class="product-price">${{ $p_product->regular_price }}</span>
+                                                    class="product-price">{{ Str::rupiah($p_product->regular_price) }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -322,50 +265,8 @@
                 </div>
 
             </div>
-
-            {{-- <div class="single-advance-box col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="wrap-show-advance-info-box style-1 box-in-site">
-                    <h3 class="title-box">Related Products</h3>
-                    <div class="wrap-products">
-                        <div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5"
-                            data-loop="false" data-nav="true" data-dots="false"
-                            data-responsive='
-                                    {"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"3"},"1200":{"items":"5"}}'>
-                            @foreach ($related_products as $r_product)
-                                <div class="product product-style-2 equal-elem ">
-                                    <div class="product-thumnail">
-                                        <a href="{{ route('product.details', ['slug' => $r_product->slug]) }}"
-                                            title="{{ $r_product->name }}">
-                                            <figure><img
-                                                    src="{{ asset('assets/images/products') }}/{{ $r_product->image }}"
-                                                    width="214" height="214" alt="{{ $r_product->name }}" />
-                                            </figure>
-                                        </a>
-                                        <div class="group-flash">
-                                            <span class="flash-item new-label">new</span>
-                                        </div>
-                                        <div class="wrap-btn">
-                                            <a href="#" class="function-link">quick view</a>
-                                        </div>
-                                    </div>
-                                    <div class="product-info">
-                                        <a href="{{ route('product.details', ['slug' => $r_product->slug]) }}"
-                                            class="product-name"><span>{{ $r_product->name }}</span></a>
-                                        <div class="wrap-price"><span
-                                                class="product-price">${{ $r_product->regular_price }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
-
         </div>
-        <!--end row-->
 
     </div>
-    <!--end container-->
 
 </main>

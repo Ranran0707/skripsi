@@ -37,20 +37,20 @@
             <tr>
                 <td colspan="3" style="border-top:1px solid #ccc;"></td>
                 <td style="font-size: 15px; font-weight:bold; border-top:1px solid #ccc;">Subtotal :
-                    ${{ $order->subtotal }}
+                    Rp. {{ $order->subtotal }}
                 </td>
             </tr>
             <tr>
                 <td colspan="3"></td>
-                <td style="font-size: 15px; font-weight:bold;">Tax : ${{ $order->tax }}</td>
+                <td style="font-size: 15px; font-weight:bold;">Tax : Rp. {{ $order->tax }}</td>
             </tr>
             <tr>
                 <td colspan="3"></td>
-                <td style="font-size: 15px; font-weight:bold;">Shipping : Free Shipping</td>
+                <td style="font-size: 15px; font-weight:bold;">Shipping : Rp. {{ $order->cost }}</td>
             </tr>
             <tr>
                 <td colspan="3"></td>
-                <td style="font-size: 22px; font-weight:bold;">Total : ${{ $order->total }}</td>
+                <td style="font-size: 22px; font-weight:bold;">Total : Rp. {{ $order->total }}</td>
             </tr>
         </tbody>
     </table>

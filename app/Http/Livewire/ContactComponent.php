@@ -39,7 +39,8 @@ class ContactComponent extends Component
         $contact->phone = $this->phone;
         $contact->comment = $this->comment;
         $contact->save();
-        session()->flash('message', 'Thanks, Your message has been Sent !');
+        return redirect()->route('contact');
+        dd('abc');
     }
 
     public function render()

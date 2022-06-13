@@ -7,7 +7,6 @@
         nav .hidden {
             display: block !important;
         }
-
     </style>
     <div class="container" style="padding: 30px 0">
         <div class="row">
@@ -32,46 +31,52 @@
                         @if (Session::has('message'))
                             <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
                         @endif
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>id</th>
-                                    <th>Image</th>
-                                    <th>Name</th>
-                                    <th>Stock</th>
-                                    <th>Price</th>
-                                    <th>Sale Price</th>
-                                    <th>Category</th>
-                                    <th>Date</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($products as $product)
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
                                     <tr>
-                                        <td>{{ $product->id }}</td>
-                                        <td><img src="{{ asset('assets/images/products') }}/{{ $product->image }}"
-                                                width="60" alt="{{ $product->name }}"></td>
-                                        <td>{{ $product->name }}</td>
-                                        <td>{{ $product->stock_status }}</td>
-                                        <td>{{ $product->regular_price }}</td>
-                                        <td>{{ $product->sale_price }}</td>
-                                        <td>{{ $product->category->name }}</td>
-                                        <td>{{ $product->created_at }}</td>
-                                        <td>
-                                            <a
-                                                href="{{ route('admin.editproduct', ['product_slug' => $product->slug]) }}"><i
-                                                    class="fa fa-edit fa-2x text-info"></i></a>
-                                            <a href="#"
-                                                onclick="confirm('Are you sure, You want to DELETE this Product ?') || event.stopImmediatePropagation() "
-                                                style="margin-left: 10px"
-                                                wire:click.prevent="deleteProduct({{ $product->id }})"><i
-                                                    class="fa fa-times fa-2x text-danger"></i></a>
-                                        </td>
+                                        <th>id</th>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Stock</th>
+                                        <th>Price</th>
+                                        <th>Sale Price</th>
+                                        <th>Category</th>
+                                        <th>Date</th>
+                                        <th>Action</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($products as $product)
+                                        <tr>
+                                            <td>{{ $product->id }}</td>
+                                            <td><img src="{{ asset('assets/images/products') }}/{{ $product->image }}"
+                                                    width="60" alt="{{ $product->name }}"></td>
+                                            <td>{{ $product->name }}</td>
+                                            <td>{{ $product->stock_status }}</td>
+                                            <td>{{ Str::rupiah($product->regular_price) }}</td>
+                                            @if ($product->sale_price)
+                                                <td>{{ Str::rupiah($product->sale_price) }}</td>
+                                            @else
+                                                <td>{{ $product->sale_price }}</td>
+                                            @endif
+                                            <td>{{ $product->category->name }}</td>
+                                            <td>{{ $product->created_at }}</td>
+                                            <td>
+                                                <a
+                                                    href="{{ route('admin.editproduct', ['product_slug' => $product->slug]) }}"><i
+                                                        class="fa fa-edit fa-2x text-info"></i></a>
+                                                <a href="#"
+                                                    onclick="confirm('Are you sure, You want to DELETE this Product ?') || event.stopImmediatePropagation() "
+                                                    style="margin-left: 10px"
+                                                    wire:click.prevent="deleteProduct({{ $product->id }})"><i
+                                                        class="fa fa-times fa-2x text-danger"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                         {{ $products->links() }}
                     </div>
                 </div>

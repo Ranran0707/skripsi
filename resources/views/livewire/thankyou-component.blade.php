@@ -18,8 +18,8 @@
                     <p>A confirmation email was sent.</p>
                     <br>
                     <h2>Please click the Payment for finish the Order ! </h2>
-                    <a href="/shop" class="btn btn-submit btn-submitx">Payment</a>
-                    <a href="/shop" class="btn btn-submit btn-submitx">Back to Shop</a>
+                    <a href="/user/orders/payment/{{ $ooid }}" class="btn btn-submit btn-submitx">Payment</a>
+                    <a href="/" class="btn btn-submit btn-submitx">Back to Home</a>
                 </div>
             </div>
         </div>

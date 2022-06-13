@@ -21,7 +21,27 @@
                                 <th>Order Date</th>
                                 <td>{{ $order->created_at }}</td>
                                 <th>Status</th>
-                                <td>{{ $order->status }}</td>
+                                @if ($order->status == 'ordered')
+                                    <td class="label label-default" style="line-height: 4">
+                                        {{ $order->status }}
+                                    </td>
+                                @elseif ($order->status == 'pending')
+                                    <td class="label label-warning" style="line-height: 4">
+                                        {{ $order->status }}
+                                    </td>
+                                @elseif ($order->status == 'canceled')
+                                    <td class="label label-danger" style="line-height: 4">
+                                        {{ $order->status }}
+                                    </td>
+                                @elseif ($order->status == 'approved')
+                                    <td class="label label-success" style="line-height: 4">
+                                        {{ $order->status }}
+                                    </td>
+                                @elseif ($order->status == 'delivered')
+                                    <td class="label label-primary" style="line-height: 4">
+                                        {{ $order->status }}
+                                    </td>
+                                @endif
                                 @if ($order->status == 'delivered')
                                     <th>Delivered Date</th>
                                     <td>{{ $order->delivered_date }}</td>
@@ -73,13 +93,14 @@
                                         @endif
 
                                         <div class="price-field produtc-price">
-                                            <p class="price">${{ $item->price }}</p>
+                                            <p class="price">{{ Str::rupiah($item->price) }}</p>
                                         </div>
                                         <div class="quantity">
                                             <h5>{{ $item->quantity }}</h5>
                                         </div>
                                         <div class="price-field sub-total">
-                                            <p class="price">${{ $item->price * $item->quantity }}</p>
+                                            <p class="price">
+                                                {{ Str::rupiah($item->price * $item->quantity) }}</p>
                                         </div>
 
                                     </li>
@@ -90,13 +111,14 @@
                             <div class="order-summary">
                                 <h4 class="title-box">Order Summary</h4>
                                 <p class="summary-info"><span class="title">Subtotal</span><b
-                                        class="index">${{ $order->subtotal }}</b></p>
+                                        class="index">{{ Str::rupiah($order->subtotal) }}</b></p>
                                 <p class="summary-info"><span class="title">Tax</span><b
-                                        class="index">${{ $order->tax }}</b></p>
+                                        class="index">{{ Str::rupiah($order->tax) }}</b></p>
                                 <p class="summary-info"><span class="title">Shipping</span><b
-                                        class="index">Free Shipping</b></p>
+                                        class="index">{{ Str::rupiah($order->cost) }}</b></p>
                                 <p class="summary-info"><span class="title">Total</span><b
-                                        class="index">${{ $order->total }}</b></p>
+                                        class="index">{{ Str::rupiah($order->total + $order->cost) }}</b>
+                                </p>
                             </div>
                         </div>
                     </div>

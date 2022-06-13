@@ -13,7 +13,7 @@
                             <h2 class="f-title"><b>{{ $slide->title }}</b></h2>
                             <span class="subtitle">{{ $slide->subtitle }}</span>
                             <p class="sale-info">Only price: <span
-                                    class="price">${{ $slide->price }}</span>
+                                    class="price">{{ Str::rupiah($slide->price) }}</span>
                             </p>
                             <a href="{{ $slide->link }}" class="btn-link">Shop Now</a>
                         </div>
@@ -64,9 +64,9 @@
                                 <a href="{{ route('product.details', ['slug' => $sproduct->slug]) }}"
                                     class="product-name"><span>{{ $sproduct->name }}</span></a>
                                 <div class="wrap-price"><ins>
-                                        <p class="product-price">${{ $sproduct->sale_price }}</p>
+                                        <p class="product-price">{{ Str::rupiah($sproduct->sale_price) }}</p>
                                     </ins> <del>
-                                        <p class="product-price">${{ $sproduct->regular_price }}</p>
+                                        <p class="product-price">{{ Str::rupiah($sproduct->regular_price) }}</p>
                                     </del></div>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                                         <div class="product-info">
                                             <a href="#" class="product-name"><span>{{ $lproduct->name }}</span></a>
                                             <div class="wrap-price"><span
-                                                    class="product-price">${{ $lproduct->regular_price }}</span>
+                                                    class="product-price">{{ Str::rupiah($lproduct->regular_price) }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -158,7 +158,7 @@
                                                 <a href="{{ route('product.details', ['slug' => $c_product->slug]) }}"
                                                     class="product-name"><span>{{ $c_product->name }}</span></a>
                                                 <div class="wrap-price"><span
-                                                        class="product-price">${{ $c_product->regular_price }}</span>
+                                                        class="product-price">{{ Str::rupiah($c_product->regular_price) }}</span>
                                                 </div>
                                             </div>
                                         </div>

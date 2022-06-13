@@ -13,17 +13,17 @@
     <link
         href="https://fonts.googleapis.com/css?family=Open%20Sans:300,400,400italic,600,600italic,700,700italic&amp;subset=latin,latin-ext"
         rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/animate.css') }}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/animate.css') }}"> --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/font-awesome.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/flexslider.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/chosen.min.css') }}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/chosen.min.css') }}"> --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/respon.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/color-01.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
 
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
@@ -33,9 +33,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.min.css"
         integrity="sha512-qveKnGrvOChbSzAdtSs8p69eoLegyh+1hwOMbmpCViIwj7rn4oJjdmMvWOuyQlTOZgTlZA0N2PXA7iA8/2TUYA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
-
 
     @livewireStyles
 </head>
@@ -56,14 +53,6 @@
             <div class="row">
                 <div class="topbar-menu-area">
                     <div class="container">
-                        <div class="topbar-menu left-menu">
-                            <ul>
-                                <li class="menu-item">
-                                    <a title="Hotline: (+123) 456 789" href="#"><span
-                                            class="icon label-before fa fa-mobile"></span>Hotline: (+123) 456 789</a>
-                                </li>
-                            </ul>
-                        </div>
                         <div class="topbar-menu right-menu">
                             <ul>
 
@@ -180,8 +169,8 @@
                         <div class="mid-section main-info-area">
 
                             <div class="wrap-logo-top left-section">
-                                <a href="index.html" class="link-to-home"><img
-                                        src="{{ asset('assets/images/logo.jpg') }}" alt="mercado"></a>
+                                <a href="/" class="link-to-home"><img src="{{ asset('assets/images/logo.jpg') }}"
+                                        alt="mercado"></a>
                             </div>
 
                             @livewire('header-search-component')
@@ -215,13 +204,7 @@
                                         <a href="/shop" class="link-term mercado-item-title">Shop</a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="/cart" class="link-term mercado-item-title">Cart</a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="/checkout" class="link-term mercado-item-title">Checkout</a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="about-us.html" class="link-term mercado-item-title">About</a>
+                                        <a href="{{ route('about') }}" class="link-term mercado-item-title">About</a>
                                     </li>
                                     <li class="menu-item">
                                         <a href="{{ route('contact') }}" class="link-term mercado-item-title">Contact
