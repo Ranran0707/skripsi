@@ -3,57 +3,30 @@
 namespace App\Http\Livewire;
 
 use App\Mail\OrderMail;
-use App\Models\Product;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Shipping;
 use App\Models\Transaction;
 use Cart;
-use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
-use Stripe;
 use Kavist\RajaOngkir\RajaOngkir;
-// use Kavist\RajaOngkir\Facades\RajaOngkir;
 
 class CheckoutComponent extends Component
 {
-    public $ship_to_different;
+    public $firstname, $lastname, $email, $mobile, $f_address, $line2, $city, $cost, $province, $zipcode;
 
-    public $firstname;
-    public $lastname;
-    public $email;
-    public $mobile;
-    public $f_address;
-    public $line2;
-    public $city;
-    public $province;
-    public $zipcode;
-
-    public $paymentmode;
     public $thankyou;
     public $oid;
 
-    public $card_no;
-    public $exp_month;
-    public $exp_year;
-    public $cvc;
-
     private $apiKey = '1418cb13a5cb7a1562715512e1a14b81';
 
-    public $provinsi_id;
-    public $kota_id;
     public $jasa;
     public $daftarProvinsi;
     public $daftarKota;
     public $coba;
-    public $cost;
     public $totalCost;
-
-
-    public $snapToken;
-
 
     public function update($fields)
     {
@@ -171,8 +144,6 @@ class CheckoutComponent extends Component
     public function render()
     {
         $this->verifyForCheckout();
-
-
         $rajaOngkir = new RajaOngkir($this->apiKey);
         $this->daftarProvinsi = $rajaOngkir->provinsi()->all();
         if ($this->province) {
@@ -186,8 +157,6 @@ class CheckoutComponent extends Component
                 'courier' => $this->jasa,
             ])->get();
         }
-
-
         return view('livewire.checkout-component')->layout('layouts.base');
     }
 }

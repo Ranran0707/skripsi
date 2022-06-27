@@ -60,8 +60,9 @@
                                     @auth
                                         @if (Auth::user()->utype === 'ADM')
                                             <li class="menu-item menu-item-has-children parent">
-                                                <a title="My Account" href="#">My Account ({{ Auth::user()->name }})<i
-                                                        class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                                <a title="My Account" href="#">My Account
+                                                    ({{ Auth::user()->name }})<i class="fa fa-angle-down"
+                                                        aria-hidden="true"></i></a>
                                                 <ul class="submenu curency">
                                                     <li class="menu-item">
                                                         <a title="Dashboard"
@@ -112,7 +113,8 @@
                                                         <a href="{{ route('logout') }}"
                                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                                                     </li>
-                                                    <form id="logout-form" method="POST" action="{{ route('logout') }}">
+                                                    <form id="logout-form" method="POST"
+                                                        action="{{ route('logout') }}">
                                                         @csrf
 
                                                     </form>
@@ -120,8 +122,9 @@
                                             </li>
                                         @else
                                             <li class="menu-item menu-item-has-children parent">
-                                                <a title="My Account" href="#">My Account ({{ Auth::user()->name }})<i
-                                                        class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                                <a title="My Account" href="#">My Account
+                                                    ({{ Auth::user()->name }})<i class="fa fa-angle-down"
+                                                        aria-hidden="true"></i></a>
                                                 <ul class="submenu curency">
                                                     <li class="menu-item">
                                                         <a title="Dashboard"
@@ -137,13 +140,15 @@
                                                     </li>
                                                     <li class="menu-item">
                                                         <a title="Change Password"
-                                                            href="{{ route('user.changepassword') }}">Change Password</a>
+                                                            href="{{ route('user.changepassword') }}">Change
+                                                            Password</a>
                                                     </li>
                                                     <li class="menu-item">
                                                         <a href="{{ route('logout') }}"
                                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                                                     </li>
-                                                    <form id="logout-form" method="POST" action="{{ route('logout') }}">
+                                                    <form id="logout-form" method="POST"
+                                                        action="{{ route('logout') }}">
                                                         @csrf
 
                                                     </form>
@@ -169,8 +174,8 @@
                         <div class="mid-section main-info-area">
 
                             <div class="wrap-logo-top left-section">
-                                <a href="/" class="link-to-home"><img src="{{ asset('assets/images/logo.jpg') }}"
-                                        alt="mercado"></a>
+                                <a href="/" class="link-to-home"><img
+                                        src="{{ asset('assets/images/logo.jpg') }}" alt="mercado"></a>
                             </div>
 
                             @livewire('header-search-component')
@@ -235,18 +240,18 @@
 
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
-                integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
-                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"
-                integrity="sha512-GDey37RZAxFkpFeJorEUwNoIbkTwsyC736KNSYucu1WJWFK9qTdzYub8ATxktr6Dwke7nbFaioypzbDOQykoRg=="
-                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            integrity="sha512-GDey37RZAxFkpFeJorEUwNoIbkTwsyC736KNSYucu1WJWFK9qTdzYub8ATxktr6Dwke7nbFaioypzbDOQykoRg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.min.js"
-                integrity="sha512-1mDhG//LAjM3pLXCJyaA+4c+h5qmMoTc7IuJyuNNPaakrWT9rVTxICK4tIizf7YwJsXgDC2JP74PGCc7qxLAHw=="
-                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            integrity="sha512-1mDhG//LAjM3pLXCJyaA+4c+h5qmMoTc7IuJyuNNPaakrWT9rVTxICK4tIizf7YwJsXgDC2JP74PGCc7qxLAHw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
         <script src="https://cdn.tiny.cloud/1/65n8t8y7mguz7uc8pjpuzupqwbd2q4671qcj4wti4lty2b15/tinymce/6/tinymce.min.js"
-                referrerpolicy="origin"></script>
+            referrerpolicy="origin"></script>
 
 
 

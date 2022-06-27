@@ -512,11 +512,11 @@
     .wrap-main-slide .slide-carousel .slide-info.slide-1{
         top: 13%;
         left: 10%;
-        background: rgba(255,255,255,0.6);
+        background: rgba(0,0,0,0);
         padding: 10px
     }
     .wrap-main-slide .slide-carousel .slide-info.slide-1 .sale-info{
-        color: #222222;
+        color: #ddd;
     }
     .wrap-main-slide .slide-carousel .slide-info .f-title{
         margin-top: 0;
@@ -1183,4 +1183,4 @@ svg {
 .wrap-page-title .rounded-r-md {
     margin-left: 5px;
 }
-
+.gg

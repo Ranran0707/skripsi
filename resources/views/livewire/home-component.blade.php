@@ -1,6 +1,29 @@
 <main id="main">
     <div class="container">
 
+        <style>
+            .bg_slide {
+                background-color: rgba(0, 0, 0, .3);
+                padding: 20px;
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                max-width: 1300px;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
+
+            .gg {
+                width: 100%;
+                max-width: 600px;
+                background-color: rgba(0, 0, 0, .4);
+                padding: 40px;
+                border-radius: 20%;
+
+            }
+        </style>
         <!--MAIN SLIDE-->
         <div class="wrap-main-slide">
             <div class="slide-carousel owl-carousel style-nav-1" data-items="1" data-loop="1" data-nav="true"
@@ -9,10 +32,11 @@
                     <div class="item-slide">
                         <img src="{{ asset('assets/images/sliders') }}/{{ $slide->image }}" alt=""
                             class="img-slide">
-                        <div class="slide-info slide-1">
-                            <h2 class="f-title"><b>{{ $slide->title }}</b></h2>
-                            <span class="subtitle">{{ $slide->subtitle }}</span>
-                            <p class="sale-info">Only price: <span
+                        <div class="bg_slide"></div>
+                        <div class="slide-info slide-1 gg">
+                            <h2 class="f-title "><b>{{ $slide->title }}</b></h2>
+                            <span class="subtitle ">{{ $slide->subtitle }}</span>
+                            <p class="sale-info ">Only price: <span
                                     class="price">{{ Str::rupiah($slide->price) }}</span>
                             </p>
                             <a href="{{ $slide->link }}" class="btn-link">Shop Now</a>
